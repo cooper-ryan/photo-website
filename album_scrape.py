@@ -41,10 +41,15 @@ for i in range(len(dirnames)):
 		print("--%s" %dirnames_temp[j])
 		# make the image list from the current directory
 		img_list=glob.glob("%s\%s\*.jpg" %(dirnames[i],dirnames_temp[j]))
-		# print("%s/%s/*.jpg" %(dirnames[i],dirnames_temp[j]))
+		# print("%s\%s\\a.txt" %(dirnames[i],dirnames_temp[j]))
 		# print(img_list)
+
+		# open the album description text file and read into a variable
+		f = open('%s\%s\description.txt' %(dirnames[i],dirnames_temp[j]),'r')
+		album_text = f.read()
+		f.close()
 		# append a tag for each subfolder
-		card_tag+=str('<div class="card">\n<img class="card-img-top card" src="%s" alt="Card image cap">\n<div class="card-body">\n<h4 class="card-title">%s</h4>\n<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content. </p>\n <a href="%s\%s.html" class="btn btn-primary">View Album</a>\n</div>\n</div>'%(img_list[random.randint(0,len(img_list)-1)],dirnames_temp[j],dirnames[i],dirnames_temp[j].replace(" ","")))
+		card_tag+=str('<div class="card">\n<img class="card-img-top card" src="%s\%s\zcover.jpg" alt="Card image cap">\n<div class="card-body">\n<h4 class="card-title">%s</h4>\n<p class="card-text">%s</p>\n <a href="%s\%s.html" class="btn btn-primary">View Album</a>\n</div>\n</div>'%(dirnames[i],dirnames_temp[j],dirnames_temp[j],album_text,dirnames[i],dirnames_temp[j].replace(" ","")))
 
 		# init the image_tag var and make the tags
 		image_tag=str("")
