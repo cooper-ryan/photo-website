@@ -48,7 +48,7 @@ for i in range(len(dirnames)):
 		f = open('%s\%s\description.txt' %(dirnames[i],dirnames_temp[j]),'r')
 		album_text = f.read()
 		f.close()
-		# append a tag for each subfolder
+		# append a tag for each subfolders
 		card_tag+=str('<div class="card">\n<img class="card-img-top card" src="%s\%s\zcover.jpg" alt="Card image cap">\n<div class="card-body">\n<h4 class="card-title">%s</h4>\n<p class="card-text">%s</p>\n <a href="%s\%s.html" class="btn btn-primary">View Album</a>\n</div>\n</div>'%(dirnames[i],dirnames_temp[j],dirnames_temp[j],album_text,dirnames[i],dirnames_temp[j].replace(" ","")))
 
 		# init the image_tag var and make the tags
