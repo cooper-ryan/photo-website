@@ -6,7 +6,6 @@ import random
 # load the file path names in the directory
 f = []
 for (dirpath, dirnames, filenames) in os.walk("."):
-	f.extend(filenames)
 	# filter hiden folders out of the list
 	dirnames[:] = [d for d in dirnames if not d[0] == '.']
 	break
@@ -30,26 +29,26 @@ for i in range(len(dirnames)):
 	print(dirnames[i])
 	# get all the subfolders in each main folder
 	temp=[]
-	for (dirpath_temp, dirnames_temp, filenames_temp) in os.walk("%s" %dirnames[i]):
+	for (dirpath_temp, album_dir, filenames_temp) in os.walk("%s" %dirnames[i]):
 		temp.extend(filenames_temp)
 		break
 	print(filenames_temp)
 
 	# init the card_tag variable
 	card_tag=str("")
-	for j in range(len(dirnames_temp)):
-		print("--%s" %dirnames_temp[j])
+	for j in range(len(album_dir)):
+		print("--%s" %album_dir[j])
 		# make the image list from the current directory
-		img_list=glob.glob("%s\%s\*.jpg" %(dirnames[i],dirnames_temp[j]))
-		# print("%s\%s\\a.txt" %(dirnames[i],dirnames_temp[j]))
+		img_list=glob.glob("%s\%s\*.jpg" %(dirnames[i],album_dir[j]))
+		# print("%s\%s\\a.txt" %(dirnames[i],album_dir[j]))
 		# print(img_list)
 
 		# open the album description text file and read into a variable
-		f = open('%s\%s\description.txt' %(dirnames[i],dirnames_temp[j]),'r')
+		f = open('%s\%s\description.txt' %(dirnames[i],album_dir[j]),'r')
 		album_text = f.read()
 		f.close()
 		# append a tag for each subfolders
-		card_tag+=str('<div class="card">\n<img class="card-img-top card" src="%s\%s\zcover.jpg" alt="Card image cap">\n<div class="card-body">\n<h4 class="card-title">%s</h4>\n<p class="card-text">%s</p>\n <a href="%s\%s.html" class="btn btn-primary">View Album</a>\n</div>\n</div>'%(dirnames[i],dirnames_temp[j],dirnames_temp[j],album_text,dirnames[i],dirnames_temp[j].replace(" ","")))
+		card_tag+=str('<div class="card">\n<img class="card-img-top card" src="%s\%s\zcover.jpg" alt="Card image cap">\n<div class="card-body">\n<h4 class="card-title">%s</h4>\n<p class="card-text">%s</p>\n <a href="%s\%s.html" class="btn btn-primary">View Album</a>\n</div>\n</div>'%(dirnames[i],album_dir[j],album_dir[j],album_text,dirnames[i],album_dir[j].replace(" ","")))
 
 		# init the image_tag var and make the tags
 		image_tag=str("")
@@ -60,17 +59,17 @@ for i in range(len(dirnames)):
 		f = open("image_template.html",'r')
 		filedata = f.read()
 		f.close()
-		replace_title = filedata.replace("#file_title",dirnames_temp[j])
-		f = open('%s\%s.html' %(dirnames[i],dirnames_temp[j].replace(" ","")),'w')
+		replace_title = filedata.replace("#file_title",album_dir[j])
+		f = open('%s\%s.html' %(dirnames[i],album_dir[j].replace(" ","")),'w')
 		f.write(replace_title)
 		f.close()
 
 		# replace the image placeholder with generated images tags
-		f = open('%s\%s.html' %(dirnames[i],dirnames_temp[j].replace(" ","")),'r')
+		f = open('%s\%s.html' %(dirnames[i],album_dir[j].replace(" ","")),'r')
 		filedata = f.read()
 		f.close()
 		replace_image = filedata.replace("<!-- #images_go_here -->",image_tag)
-		f = open('%s\%s.html' %(dirnames[i],dirnames_temp[j].replace(" ","")),'w')
+		f = open('%s\%s.html' %(dirnames[i],album_dir[j].replace(" ","")),'w')
 		f.write(replace_image)
 		f.close()
 
