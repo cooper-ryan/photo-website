@@ -53,7 +53,7 @@ for i in range(len(dirnames)):
 		# init the image_tag var and make the tags
 		image_tag=str("")
 		for k in range(len(img_list)):
-			image_tag+=str('<img class="center" src="%s" alt="Placeholder">\n' %img_list[k].replace("%s\\"%dirnames[i],""))
+			image_tag+=str('<img class="center" src="%s" srcset="" alt="Placeholder">\n' %img_list[k].replace("%s\\"%dirnames[i],""))
 
 		# open the html template and replace the title
 		f = open("image_template.html",'r')
